@@ -4,10 +4,11 @@ import urllib.request
 import datetime
 import json
 import sqlite3
-from os.path import isfile as fileexists
+import os.path
 
 SPACEAPI_DIRECTORY = "http://spaceapi.net/directory.json"
-DATABASE = "space_states.db"
+DATABASE = os.path.join(os.path.dirname(__file__), "space_states.db")
+print(DATABASE)
 
 def open_db():
     return sqlite3.connect(DATABASE)
@@ -61,7 +62,7 @@ def get_states(conn):
         print(space[0], now, space_open)
 
 if __name__ == "__main__":
-    if not fileexists(DATABASE):
+    if not os.path.isfile(DATABASE):
             conn = open_db()
             create_db(conn)
     else:
