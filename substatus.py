@@ -8,7 +8,6 @@ import os.path
 
 SPACEAPI_DIRECTORY = "http://spaceapi.net/directory.json"
 DATABASE = os.path.join(os.path.dirname(__file__), "space_states.db")
-print(DATABASE)
 
 def open_db():
     return sqlite3.connect(DATABASE)
@@ -59,7 +58,6 @@ def get_states(conn):
                                         (space[0],
                                             now,
                                             space_open))
-        print(space[0], now, space_open)
 
 if __name__ == "__main__":
     if not os.path.isfile(DATABASE):
