@@ -40,10 +40,15 @@ def get_states(conn):
             with urllib.request.urlopen(space[2], timeout=5) as response:
                 state = response.read()
         except:
+            #print("Could not fetch {0}".format(space))
             continue
 
         #As sqlite does not support bools, we have to convert the state to int
-        space_state = json.loads(state.decode("utf-8"))
+        try:
+            space_state = json.loads(state.decode("utf-8"))
+        except ValueError:
+            print("Error decoding JSON of {0}\n{1}".format(space,state))
+            continue
         if (space_state.get("open") == True):
             space_open = 1
         else:
